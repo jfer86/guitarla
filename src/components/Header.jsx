@@ -1,6 +1,13 @@
 import { useMemo } from "react";
+import PropTypes from "prop-types";
 
-export default function Header({ cart, removeFromCart, incrementQuantity, decrementQuantity, clearCart }) {
+export default function Header({
+  cart,
+  removeFromCart,
+  incrementQuantity,
+  decrementQuantity,
+  clearCart,
+}) {
   // State Derivado
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
@@ -16,7 +23,7 @@ export default function Header({ cart, removeFromCart, incrementQuantity, decrem
             <a href="index.html">
               <img
                 className="img-fluid"
-                src="./public/img/logo.svg"
+                src="/img/logo.svg"
                 alt="imagen logo"
               />
             </a>
@@ -25,7 +32,7 @@ export default function Header({ cart, removeFromCart, incrementQuantity, decrem
             <div className="carrito">
               <img
                 className="img-fluid"
-                src="./public/img/carrito.png"
+                src="/img/carrito.png"
                 alt="imagen carrito"
               />
 
@@ -57,7 +64,11 @@ export default function Header({ cart, removeFromCart, incrementQuantity, decrem
                             <td>{guitar.name}</td>
                             <td className="fw-bold">${guitar.price}</td>
                             <td className="flex align-items-start gap-4">
-                              <button type="button" className="btn btn-dark" onClick={() => decrementQuantity(guitar.id)}>
+                              <button
+                                type="button"
+                                className="btn btn-dark"
+                                onClick={() => decrementQuantity(guitar.id)}
+                              >
                                 -
                               </button>
                               {guitar.quantity}
@@ -88,8 +99,11 @@ export default function Header({ cart, removeFromCart, incrementQuantity, decrem
                     </p>
                   </>
                 )}
-                <button className="btn btn-dark w-100 mt-3 p-2">
-                  Vaciar Carrito 
+                <button
+                  className="btn btn-dark w-100 mt-3 p-2"
+                  onClick={clearCart}
+                >
+                  Vaciar Carrito
                 </button>
               </div>
             </div>
@@ -99,3 +113,20 @@ export default function Header({ cart, removeFromCart, incrementQuantity, decrem
     </header>
   );
 }
+
+Header.propTypes = {
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+
+  removeFromCart: PropTypes.func.isRequired,
+  incrementQuantity: PropTypes.func.isRequired,
+  decrementQuantity: PropTypes.func.isRequired,
+  clearCart: PropTypes.func.isRequired,
+};

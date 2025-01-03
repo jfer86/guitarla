@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 export default function Guitar({ guitar, addToCart }) {
-  const { id, name, image, description, price } = guitar;
+  const { name, image, description, price } = guitar;
 
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
@@ -25,3 +26,14 @@ export default function Guitar({ guitar, addToCart }) {
     </div>
   );
 }
+
+Guitar.propTypes = {
+  guitar: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  addToCart: PropTypes.func.isRequired,
+};
