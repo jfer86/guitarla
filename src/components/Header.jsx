@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import PropTypes from "prop-types";
 
 export default function Header({
@@ -7,14 +6,9 @@ export default function Header({
   incrementQuantity,
   decrementQuantity,
   clearCart,
+  isEmpty,
+  cartTotal,
 }) {
-  // State Derivado
-  const isEmpty = useMemo(() => cart.length === 0, [cart]);
-  const cartTotal = useMemo(
-    () => cart.reduce((total, item) => total + item.quantity * item.price, 0),
-    [cart]
-  );
-
   return (
     <header className="py-5 header">
       <div className="container-xl">
@@ -129,4 +123,6 @@ Header.propTypes = {
   incrementQuantity: PropTypes.func.isRequired,
   decrementQuantity: PropTypes.func.isRequired,
   clearCart: PropTypes.func.isRequired,
+  isEmpty: PropTypes.bool.isRequired,
+  cartTotal: PropTypes.number.isRequired,
 };
